@@ -63,7 +63,8 @@
 ##############################################################################
 
 # Attempt to set APP_HOME
-ls -al
+echo "Env Vars"
+echo ${GH_TOKEN}
 # Resolve links: $0 may be a link
 app_path=$0
 
