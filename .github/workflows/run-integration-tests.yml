@@ -1,7 +1,7 @@
 name: Run Gateway Integration Tests.
 on:
   workflow_dispatch:
-  pull_request:
+  pull_request_target:
     types:
       - closed
       - opened
@@ -33,16 +33,17 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: "0"
           path: apk-repo
-      - name: Set release username and email
-        shell: sh
-        run: |
-          git config --global user.email pasan96tennakoon@gmail.com
-          git config --global user.name pasant9
+      # - name: Set release username and email
+      #   shell: sh
+      #   run: |
+      #     git config --global user.name ${{ secrets.WSO2_BOT_USER }}
+      #     git config --global user.email ${{ secrets.WSO2_BOT_EMAIL }}
       - name: checkout pull request and merge.
         shell: sh
         # if: github.event_name == 'pull_request_target' && github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
-          echo ${{ github.event_name }}
+          echo "event name: "
+          github.event_name
           cd apk-repo
           gh pr checkout ${{ github.event.number }} -b pr-${{ github.event.number }}
           git checkout pr-${{ github.event.number }}
