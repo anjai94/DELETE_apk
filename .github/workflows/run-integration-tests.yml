@@ -36,12 +36,13 @@ jobs:
       - name: Set release username and email
         shell: sh
         run: |
-          git config --global user.email guest@gmail.com
-          git config --global user.name guest
+          git config --global user.email pasan96tennakoon@gmail.com
+          git config --global user.name pasant9
       - name: checkout pull request and merge.
         shell: sh
-        if: github.event_name == 'pull_request_target' && github.event.action == 'opened' || github.event.action == 'synchronize'
+        # if: github.event_name == 'pull_request_target' && github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
+          echo ${{ github.event_name }}
           cd apk-repo
           gh pr checkout ${{ github.event.number }} -b pr-${{ github.event.number }}
           git checkout pr-${{ github.event.number }}
